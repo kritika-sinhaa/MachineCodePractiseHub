@@ -4,16 +4,15 @@ import { toast } from 'react-toastify';
 import { authService } from '../../services/authService';
 import {
   Container,
+  Box,
   Paper,
   Typography,
   TextField,
   Button,
-  Box,
-  InputAdornment,
+  Divider,
   IconButton,
+  InputAdornment,
   Link,
-  CircularProgress,
-  Divider
 } from '@mui/material';
 import {
   Visibility,
@@ -68,87 +67,24 @@ const Login = () => {
     if (validateForm()) {
       setIsLoading(true);
       try {
-        console.log('Form submission started');
-        
         const response = await authService.login({
           email: formData.email,
           password: formData.password
         });
         
-        console.log('Login successful, response:', response);
-
-        if (response.token) {
-          // Store the token
-          localStorage.setItem('token', response.token);
-          toast.success('Login successful!');
-          navigate('/');
-        } else {
-          throw new Error('No token received from server');
-        }
-
+        toast.success('Login successful!');
+        navigate('/topics');
       } catch (error) {
-        console.error('Login error:', {
-          message: error.message,
-          status: error.response?.status,
-          data: error.response?.data
-        });
-        
-        // Network or connection error
-        if (!error.response) {
-          const errorMessage = 'Unable to connect to the server. Please check your internet connection.';
-          toast.error(errorMessage);
-          setErrors({
-            submit: errorMessage
-          });
-          return;
-        }
-
-        // Handle specific error cases
-        switch (error.response.status) {
-          case 401:
-            toast.error('Invalid email or password');
-            setErrors({
-              submit: 'Invalid email or password'
-            });
-            break;
-          case 400:
-            const errorMessage = error.response.data?.message || 'Invalid login data';
-            toast.error(errorMessage);
-            setErrors({
-              submit: errorMessage
-            });
-            break;
-          case 404:
-            toast.error('User not found');
-            setErrors({
-              submit: 'User not found'
-            });
-            break;
-          case 500:
-            toast.error('Server error. Please try again later.');
-            setErrors({
-              submit: 'Server error. Please try again later.'
-            });
-            break;
-          default:
-            toast.error('Login failed. Please try again later.');
-            setErrors({
-              submit: 'Login failed. Please try again later.'
-            });
-        }
+        toast.error(error.response?.data?.message || 'Login failed');
+        setErrors({ submit: 'Invalid email or password' });
       } finally {
         setIsLoading(false);
       }
     }
   };
 
-  const handleGoogleLogin = () => {
-    // Implement Google OAuth login
-    toast.info('Google login coming soon!');
-  };
-
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <Box
         sx={{
           marginTop: 8,
@@ -158,20 +94,27 @@ const Login = () => {
         }}
       >
         <Paper
-          elevation={3}
+          elevation={2}
           sx={{
-            padding: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
+            p: 4,
+            width: '80%',
+            borderRadius: 2,
           }}
         >
-          <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{
+              mb: 3,
+              textAlign: 'center',
+              fontWeight: 600,
+              color: '#262626'
+            }}
+          >
             Welcome Back
           </Typography>
 
-          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <form onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
@@ -188,7 +131,7 @@ const Login = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <EmailIcon />
+                    <EmailIcon sx={{ color: 'action.active' }} />
                   </InputAdornment>
                 ),
               }}
@@ -210,7 +153,7 @@ const Login = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <LockIcon />
+                    <LockIcon sx={{ color: 'action.active' }} />
                   </InputAdornment>
                 ),
                 endAdornment: (
@@ -228,7 +171,16 @@ const Login = () => {
             />
 
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-              <Link href="/forgot-password" variant="body2">
+              <Link
+                href="/forgot-password"
+                sx={{
+                  color: '#ffa116',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
                 Forgot password?
               </Link>
             </Box>
@@ -243,10 +195,19 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
               disabled={isLoading}
+              sx={{
+                mt: 3,
+                mb: 2,
+                bgcolor: '#ffa116',
+                '&:hover': {
+                  bgcolor: '#ff9100',
+                },
+                height: '48px',
+                fontSize: '1rem',
+              }}
             >
-              {isLoading ? <CircularProgress size={24} /> : 'Sign In'}
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
 
             <Divider sx={{ my: 2 }}>OR</Divider>
@@ -255,18 +216,36 @@ const Login = () => {
               fullWidth
               variant="outlined"
               startIcon={<GoogleIcon />}
-              onClick={handleGoogleLogin}
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                height: '48px',
+                fontSize: '1rem',
+                color: '#262626',
+                borderColor: '#d4d4d4',
+                '&:hover': {
+                  borderColor: '#262626',
+                  bgcolor: 'rgba(0,0,0,0.01)',
+                },
+              }}
             >
               Continue with Google
             </Button>
           </form>
 
           <Box sx={{ mt: 2, textAlign: 'center' }}>
-            <Typography variant="body2">
+            <Typography variant="body2" color="textSecondary">
               Don't have an account?{' '}
-              <Link href="/register" variant="body2">
-                Sign up here
+              <Link
+                href="/register"
+                sx={{
+                  color: '#ffa116',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Register here
               </Link>
             </Typography>
           </Box>
