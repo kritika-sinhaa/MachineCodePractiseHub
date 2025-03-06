@@ -1,0 +1,22 @@
+.MuiPaper-root {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+}
+
+.MuiButton-contained {
+  background: linear-gradient(45deg, #1976d2 30%, #2196f3 90%);
+  box-shadow: 0 3px 5px 2px rgba(33, 150, 243, .3);
+}
+
+.MuiButton-outlined {
+  border-color: #1976d2 !important;
+  color: #1976d2 !important;
+}
+
+.MuiButton-outlined:hover {
+  background-color: rgba(25, 118, 210, 0.04) !important;
+}
+
+.MuiTextField-root {
+  background-color: rgba(255, 255, 255, 0.7);
+} 
