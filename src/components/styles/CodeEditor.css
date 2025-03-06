@@ -1,0 +1,33 @@
+/* Existing styles... */
+
+.code-editor-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 500px; /* Ensure minimum height */
+  width: 100%;      /* Take full width */
+  margin: 16px 0;   /* Add some vertical spacing */
+}
+
+.solution-section {
+  margin-top: 32px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;     /* Take full width */
+}
+
+/* Ensure the editor wrapper takes full height */
+.editor-section {
+  margin-top: 16px;
+  height: 500px;   /* Fixed height */
+  width: 100%;     /* Take full width */
+}
+
+/* Make sure Monaco editor container is visible */
+.monaco-editor {
+  padding: 8px;
+  height: 100% !important;
+  width: 100% !important;
+}

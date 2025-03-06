@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -6,12 +7,26 @@ import {
   Typography,
   Button,
   Container,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import CodeIcon from '@mui/icons-material/Code';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const Navbar = () => {
+const Header = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,35 +43,37 @@ const Navbar = () => {
           <Toolbar 
             sx={{ 
               minHeight: '60px !important',
-              background: '#1a1a1a !important'
+              background: '#1a1a1a !important',
+              display: 'flex',
+              justifyContent: 'space-between'
             }}
           >
-            {/* Logo and Brand */}
-            <Box 
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                cursor: 'pointer'
-              }}
-              onClick={() => navigate('/')}
-            >
-              <CodeIcon sx={{ color: '#ffa116', mr: 1 }} />
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: 600,
-                  fontSize: '1.25rem',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center'
+            {/* Left Section */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  mr: 4
                 }}
+                onClick={() => navigate('/')}
               >
-                Machine Coding Platform
-              </Typography>
-            </Box>
+                <CodeIcon sx={{ color: '#ffa116', mr: 1 }} />
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: '1.25rem',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                >
+                  Machine Coding
+                </Typography>
+              </Box>
 
-            {/* Navigation Links */}
-            <Box sx={{ ml: 4, display: 'flex', alignItems: 'center', flex: 1 }}>
               <Button
                 sx={{
                   color: '#ffffff !important',
@@ -75,7 +92,7 @@ const Navbar = () => {
               </Button>
             </Box>
 
-            {/* Right Side Actions */}
+            {/* Right Section */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Button
                 sx={{
@@ -112,9 +129,9 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar /> {/* This creates space below the fixed navbar */}
+      <Toolbar /> {/* Spacer */}
     </Box>
   );
 };
 
-export default Navbar; 
+export default Header; 

@@ -1,0 +1,58 @@
+.submission-page {
+  padding: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.submit-button, .run-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.run-button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+}
+
+.ai-solution-button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.output-display {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  margin-top: 10px;
+}
+
+.output-section {
+  margin-top: 20px;
+}
+
+.editor-section {
+  margin-bottom: 20px;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+} 
